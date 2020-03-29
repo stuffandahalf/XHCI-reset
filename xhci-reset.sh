@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # This script resets any XHCI busses that may have died during runtime.
+# Based on information from "https://bbs.archlinux.org/viewtopic.php?id=236536"
 # This script is released into the public domain.
 # Written by Gregory Norton <Gregory.Norton@me.com> March 28, 2020
 
