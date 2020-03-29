@@ -6,6 +6,7 @@
 # Written by Gregory Norton <Gregory.Norton@me.com> March 28, 2020
 
 DEBUG=false
+#DEBUG=true
 
 DEVICES=$(dmesg | grep "xhci_hcd" | grep "HC died" | cut -d" " -f4 | sed 's/.$//')
 #DEVICES=$(cat ~/test.txt | grep "xhci_hcd" | grep "HC died" | cut -d" " -f4 | sed 's/.$//' | cat)
@@ -14,9 +15,7 @@ if $DEBUG; then
 fi
 
 QUIT=false
-for D in `echo $DEVICES | rev`; do
-#for (( i=${#DEVICES[@]}-1 ; i>=0 ; i-- )); do
-#	D=${DEVICES[i]}
+for D in `echo $DEVICES | tac`; do
 	if $DEBUG; then
 		echo "\$D = $D"
 	fi
@@ -35,9 +34,13 @@ for D in `echo $DEVICES | rev`; do
 
 		case $RESET in
 		y)
+			printf "Unbinding device "
 			echo -n "$D" | sudo tee /sys/bus/pci/drivers/xhci_hcd/unbind
+			echo "" # to give a newline
 			sleep 5
+			printf "Rebinding device "
 			echo -n "$D" | sudo tee /sys/bus/pci/drivers/xhci_hcd/bind
+			echo "" # to give a newline
 			;;
 		n)
 			echo "Skipping device $D"
