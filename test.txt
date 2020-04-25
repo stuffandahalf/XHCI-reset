@@ -1,0 +1,4 @@
+[ 2908.948324] xhci_hcd 0000:1:00.3: HC died; cleaning up
+[ 2908.948324] xhci_hcd 0000:2:00.3: HC died; cleaning up
+[ 2908.948324] xhci_hcd 0000:3:00.3: HC died; cleaning up
+[ 2908.948324] xhci_hcd 0000:12:00.3: HC died; cleaning up
