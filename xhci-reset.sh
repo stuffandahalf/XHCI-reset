@@ -1,22 +1,20 @@
-#!/bin/sh
+#!/bin/bash
 
 # This script resets any XHCI buses that may have died during runtime.
 # Based on information from "https://bbs.archlinux.org/viewtopic.php?id=236536"
 # This script is released into the public domain.
 # Written by Gregory Norton <Gregory.Norton@me.com> March 28, 2020
 
-#DEBUG=false
-DEBUG=true
+DEBUG=false
+#DEBUG=true
 
 SOURCE=dmesg
 #SOURCE="cat ./test.txt"
 if $DEBUG; then
 	echo "\$SOURCE = $SOURCE"
 fi
-#DEVICES=$(dmesg | grep "xhci_hcd" | grep "HC died" | cut -d" " -f3,4,5 | sed 's/ /\n/' | sed 's/.$//')
-#DEVICES=$(cat ~/test.txt | grep "xhci_hcd" | grep "HC died" | cut -d" " -f4 | sed 's/.$//' | cat)
 
-DEVICES=$($SOURCE | grep "xhci_hcd" | grep "HC died" | cut -d" " -f3,4,5 | sed 's/ /\n/' | grep -o -P "\d{4}:\d+:\d{2}\.\d+")
+DEVICES=$($SOURCE | grep "xhci_hcd" | grep "HC died" | grep -o -P "\d{4}:\d+:\d{2}\.\d+")
 if $DEBUG; then
 	echo "\$DEVICES = $DEVICES"
 fi
